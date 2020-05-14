@@ -27,9 +27,16 @@
  *    p3.then(answer => console.log(answer))
  *      .catch((error) => console.log(error.message)) // 'Error: Wrong parameter is passed!
  *                                                    //  Ask her again.';
+ *                                                    resolve, rej => {
+    (isPositiveAnswer)?res('Hooray!!! She said "Yes"!'):res('Oh no, she said "No".');
  */
-function willYouMarryMe(/* isPositiveAnswer */) {
-  throw new Error('Not implemented');
+function willYouMarryMe(isPositiveAnswer) {
+  return new Promise(((resolve, reject) => (
+    // eslint-disable-next-line no-nested-ternary
+    (typeof isPositiveAnswer !== 'boolean')
+      ? reject(new Error('Wrong parameter is passed! Ask her again.')) : (isPositiveAnswer) ? resolve('Hooray!!! She said "Yes"!') : resolve('Oh no, she said "No".')
+  )
+  ));
 }
 
 
